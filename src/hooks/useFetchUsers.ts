@@ -41,10 +41,14 @@ export const useFetchUsers = ({
         const fetchData = async () => {
             if (!data.length) {
                 setIsLoading(true);
-            } 
+            }
+
+            console.log("env variables", process.env.BASE_URL);
 
             const url = new URL(
-                '/api/data', 'http://localhost:5000'
+                '/api/data', process.env.NODE_ENV === 'production'
+                ? process.env.BASE_URL 
+                : 'http://localhost:5000'
             );
             url.searchParams.set('start', `${pagination.pageIndex * pagination.pageSize}`);
             url.searchParams.set('size', `${pagination.pageSize}`);
@@ -63,7 +67,6 @@ export const useFetchUsers = ({
                 setIsError(false);
             } catch (error) {
                 setIsError(true);
-                console.error(error);
             } finally {
                 setIsLoading(false);
             }
@@ -76,7 +79,7 @@ export const useFetchUsers = ({
         pagination.pageIndex,
         pagination.pageSize,
         sorting,
-        data
+        data.length
     ]);
 
     return {

@@ -7,7 +7,7 @@ import {
     useMantineReactTable,
     type MRT_ColumnDef,
 } from 'mantine-react-table';
-import { Text, Badge, Group, Container, Title, Paper, Grid, Stack, Divider, Alert } from '@mantine/core';
+import { Text, Badge, Group, Container, Title, Paper, Grid, Stack, Divider, Alert, Tooltip } from '@mantine/core';
 import { IconUser, IconCalendar, IconGenderMale, IconGenderFemale, IconUserMinus, IconUserPlus, IconUsers, IconInfoCircle } from '@tabler/icons-react';
 import { ColorSchemeToggle } from './ColorSchemeToggle';
 import { Patient, useFetchUsers } from '@/hooks/useFetchUsers';
@@ -29,10 +29,9 @@ const PatientsDashboard = () => {
             header: 'Name',
             filterVariant: 'text',
             Cell: ({ row }) => (
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <IconUser size={18} />
+                <Group style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Text>{row.original.name}</Text>
-                </div>
+                </Group>
             ),
         },
         {
@@ -57,11 +56,9 @@ const PatientsDashboard = () => {
                 ],
             },
             Cell: ({ cell }) => (
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    {cell.getValue() === 'Male' && <IconGenderMale size={18} color="blue" />}
-                    {cell.getValue() === 'Female' && <IconGenderFemale size={18} color="pink" />}
+                <Group style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Text>{cell.getValue<string>()}</Text>
-                </div>
+                </Group>
             ),
         },
         {
@@ -69,12 +66,19 @@ const PatientsDashboard = () => {
             id: 'diagnosisDate',
             header: 'Diagnosis Date',
             filterVariant: 'date-range',
-            Cell: ({ cell }) => (
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <IconCalendar size={18} />
-                    <Text>{cell.getValue<Date>().toLocaleDateString()}</Text>
-                </div>
-            ),
+            Cell: ({ cell }) => {
+                const date = cell.getValue<Date>();
+                const formattedDate = date.toDateString();
+                const hint = `Diagnosis Date: ${formattedDate}`;
+                
+                return (
+                    <Tooltip label={hint} position="top" withArrow>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <Text>{formattedDate}</Text>
+                        </div>
+                    </Tooltip>
+                );
+            },
         },
         {
             accessorKey: 'status',
