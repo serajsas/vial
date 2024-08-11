@@ -43,11 +43,9 @@ export const useFetchUsers = ({
                 setIsLoading(true);
             }
 
-            console.log("env variables", process.env.BASE_URL);
-
             const url = new URL(
                 '/api/data', process.env.NODE_ENV === 'production'
-                ? process.env.BASE_URL 
+                ? process.env.NEXT_PUBLIC_BASE_URL 
                 : 'http://localhost:5000'
             );
             url.searchParams.set('start', `${pagination.pageIndex * pagination.pageSize}`);
