@@ -11,3 +11,6 @@ The dashboard is designed with the following key features:
 4. Search Functionality: Users can search across the entire grid or within specific columns.
 5. Pagination: The application includes pagination to improve data navigation.
 6. Responsive Design: While optimized for large screens, the application is also designed to be functional on smaller devices.
+
+## Screenshot of the application:
+<img width="1367" alt="image" src="https://github.com/user-attachments/assets/5234ca09-ed3e-45b1-85df-2e7530dea8e7">
