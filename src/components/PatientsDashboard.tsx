@@ -164,7 +164,7 @@ const PatientsDashboard = () => {
             <Paper shadow="md" radius="lg" p="xl" withBorder mb="xl">
                 <Grid>
                     <Grid.Col span={8}>
-                        <Title order={2} mb="xs">Patient Dashboard</Title>
+                        <Title order={2} mb="xs">Patients Dashboard</Title>
                         <Text color="dimmed" mb="md">
                             Manage and monitor patient information efficiently
                         </Text>
